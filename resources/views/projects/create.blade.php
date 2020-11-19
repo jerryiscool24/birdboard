@@ -18,7 +18,7 @@
                                     Title
                                 </label>
 
-                                <input class="form-input rounded-md shadow-sm mt-1 block w-full" id="title" type="text"
+                                <input class="form-input rounded-md shadow-sm mt-1 block w-full" name="title" id="title" type="text"
                                     autocomplete="title">
 
                             </div>
@@ -29,7 +29,7 @@
                                 </label>
 
                                 <textarea
-                                    class="resize-none border rounded focus:outline-none focus:shadow-outline w-full" style="min-height: 200px"></textarea>
+                                    class="resize-none border rounded focus:outline-none focus:shadow-outline w-full" name="description" style="min-height: 200px"></textarea>
 
                             </div>
                         </div>
