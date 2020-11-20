@@ -23,8 +23,10 @@
                                     @csrf
 
                                     <div class="flex items-center">
-                                        <input type="text" name="body" value="{{ $task->body }}" class="w-full {{ $task->completed ? 'text-gray-400' : '' }}">
-                                        <input type="checkbox" name="completed" onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
+                                        <input type="text" name="body" value="{{ $task->body }}"
+                                            class="w-full {{ $task->completed ? 'text-gray-400' : '' }}">
+                                        <input type="checkbox" name="completed" onchange="this.form.submit()"
+                                            {{ $task->completed ? 'checked' : '' }}>
                                     </div>
                                 </form>
                             </div>
@@ -42,8 +44,24 @@
 
                     <div>
                         <h2 class="text-lg text-gray-400 font-normal mb-3">General Notes</h2>
+
                         {{-- general notes --}}
-                        <textarea class="card resize-none w-full" style="min-height: 200px"></textarea>
+                        <form action="{{ $project->path() }}" method="POST">
+                            @method('PATCH')
+                            @csrf
+
+                            <textarea
+                                name="notes"
+                                class="card resize-none w-full mb-4"
+                                style="min-height: 200px"
+                                placeholder="Anything special that you want to make a note of?"
+                            >{{ $project->notes }}</textarea>
+
+                            <button type="submit"
+                                class="inline-flex items-center px-4 py-2 mr-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none focus:border-blue-600 focus:shadow-outline-blue disabled:opacity-25 transition ease-in-out duration-150">
+                                Save
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <div class="lg:w-1/4 px-3">
