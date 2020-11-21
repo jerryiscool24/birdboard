@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Concerns\ValidatesAttributes;
 
 class ProjectsController extends Controller
 {
@@ -44,29 +45,51 @@ class ProjectsController extends Controller
     }
 
     /**
+     *
+     * @param Project $project
+     * @return view
+     */
+    public function edit(Project $project)
+    {
+        return view('projects.edit', compact('project'));
+    }
+
+    /**
      * store
      *
      * @return view
      */
     public function store()
     {
-        $attributes = request()->validate([
-            'title' => ['required'],
-            'description' => ['required', 'max:100'],
-            'notes' => ['max:255']
-        ]);
-
-        $project = auth()->user()->projects()->create($attributes);
+        $project = auth()->user()->projects()->create($this->validateRequest());
 
         return redirect($project->path());
     }
 
+    /**
+     *
+     * @param Project $project
+     * @return redirect
+     */
     public function update(Project $project)
     {
         $this->authorize('update', $project);
 
-        $project->update(request(['notes']));
+        $project->update($this->validateRequest());
 
         return redirect($project->path());
+    }
+
+    /**
+     *
+     * @return array
+     */
+    protected function validateRequest()
+    {
+        return request()->validate([
+            'title' => ['required'],
+            'description' => ['required', 'max:100'],
+            'notes' => ['max:255']
+        ]);
     }
 }

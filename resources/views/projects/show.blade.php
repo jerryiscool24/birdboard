@@ -5,7 +5,7 @@
                 <a href="/projects">My Projects</a> / {{ $project->title }}
             </p>
 
-            <a href="/projects/create" class="text-sm bg-blue-500 text-white py-2 px-5 rounded-lg shadow-md">Add
+            <a href="{{ $project->path() . '/edit' }}" class="text-sm bg-blue-500 text-white py-2 px-5 rounded-lg shadow-md">Edit
                 Project</a>
         </div>
     </x-slot>

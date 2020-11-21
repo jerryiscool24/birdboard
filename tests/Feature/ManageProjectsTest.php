@@ -13,35 +13,18 @@ class ManageProjectsTest extends TestCase
 {
     use WithFaker, RefreshDatabase;
 
-
     /**
      * @test
      */
-    public function guess_cannot_create_projects()
-    {
-        $attributes = Project::factory()->raw();
-
-        $this->get('/projects/create', $attributes)->assertRedirect('login');
-
-        $this->post('/projects', $attributes)->assertRedirect('login');
-    }
-
-     /**
-     * @test
-     */
-    public function guess_cannot_view_projects()
-    {
-        $this->get('/projects')->assertRedirect('login');
-    }
-
-    /**
-     * @test
-     */
-    public function guess_cannot_view_a_single_project()
+    public function guess_cannot_manage_projects()
     {
         $project = Project::factory()->create();
 
+        $this->get('/projects')->assertRedirect('login');
+        $this->get('/projects/create')->assertRedirect('login');
+        $this->get($project->path() . '/edit')->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
+        $this->post('/projects', $project->toArray())->assertRedirect('login');
     }
 
     /**
@@ -79,8 +62,10 @@ class ManageProjectsTest extends TestCase
         $project = ProjectFactory::create();
 
         $this->actingAs($project->owner)
-            ->patch($project->path(), $attributes = ['notes' => 'Changed'])
+            ->patch($project->path(), $attributes = ['title' => 'Changed', 'description' => 'Changed', 'notes' => 'Changed'])
             ->assertRedirect($project->path());
+
+        // $this->get($project->path() . '/edit')->assertOk();
 
         $this->assertDatabaseHas('projects', $attributes);
     }
@@ -119,7 +104,7 @@ class ManageProjectsTest extends TestCase
 
         $project = Project::factory()->create();
 
-        $this->patch($project->path())->assertStatus(403);
+        $this->patch($project->path(), [])->assertStatus(403);
 
     }
 
