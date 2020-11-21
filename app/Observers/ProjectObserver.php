@@ -29,6 +29,13 @@ class ProjectObserver
         $this->recordActivity($project, 'updated');
     }
 
+    /**
+     * Record activity
+     *
+     * @param object $project
+     * @param string $type
+     * @return void
+     */
     protected function recordActivity($project, $type)
     {
         Activity::create([
