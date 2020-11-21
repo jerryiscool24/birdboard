@@ -2,23 +2,27 @@
     <div class="grid gap-6">
 
         <div class="col-span-6 sm:col-span-4">
-            <label class="block font-medium text-sm text-gray-700" for="title">
+            <label class="block text-lg text-gray-700" for="title">
                 Title
             </label>
 
             <input class="form-input rounded-md shadow-sm mt-1 block w-full" name="title" id="title" type="text"
                 autocomplete="title" value="{{ $project->title }}">
-
+            @error('title')
+                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <label class="block font-medium text-sm text-gray-700" for="description">
+            <label class="block text-lg text-gray-700" for="description">
                 Description
             </label>
 
-            <textarea
-                class="resize-none border rounded focus:outline-none focus:shadow-outline w-full" name="description" style="min-height: 200px">{{ $project->description }}</textarea>
-
+            <textarea class="resize-none border rounded focus:outline-none focus:shadow-outline w-full p-2 mt-1"
+                name="description" style="min-height: 200px">{{ $project->description }}</textarea>
+            @error('description')
+                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+            @enderror
         </div>
     </div>
 </div>
@@ -29,5 +33,6 @@
         {{ $buttonText }}
     </button>
 
-    <a href="{{ $cancelPath }}" class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-gray-200 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Cancel</a>
+    <a href="{{ $cancelPath }}"
+        class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-gray-200 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Cancel</a>
 </div>
