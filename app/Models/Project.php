@@ -16,22 +16,33 @@ class Project extends Model
         return "/projects/{$this->id}";
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo(User::class);
     }
 
-
     /**
-     * tasks
-     *
-     * @return \Illuminate\Database\Eloquent\Concerns\HasManyRelationships
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
 
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    /**
+     * Add task to a project
+     *
+     * @param string $body
+     * @return model
+     */
     public function addTask($body)
     {
         return $this->tasks()->create(compact('body'));
