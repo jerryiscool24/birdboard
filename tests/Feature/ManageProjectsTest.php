@@ -13,9 +13,7 @@ class ManageProjectsTest extends TestCase
 {
     use WithFaker, RefreshDatabase;
 
-    /**
-     * @test
-     */
+    /** @test */
     public function guess_cannot_manage_projects()
     {
         $project = Project::factory()->create();
@@ -27,9 +25,7 @@ class ManageProjectsTest extends TestCase
         $this->post('/projects', $project->toArray())->assertRedirect('login');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_user_can_create_a_project()
     {
         $this->signIn();
@@ -54,9 +50,7 @@ class ManageProjectsTest extends TestCase
             ->assertSee($attributes['notes']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_user_can_update_a_project()
     {
         $project = ProjectFactory::create();
@@ -70,9 +64,7 @@ class ManageProjectsTest extends TestCase
         $this->assertDatabaseHas('projects', $attributes);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_user_can_update_a_project_general_notes()
     {
         $project = ProjectFactory::create();
@@ -83,9 +75,7 @@ class ManageProjectsTest extends TestCase
         $this->assertDatabaseHas('projects', $attributes);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_user_can_view_their_project()
     {
         $project = ProjectFactory::create();
@@ -95,9 +85,7 @@ class ManageProjectsTest extends TestCase
             ->assertSee($project->title);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
         $this->signIn();
@@ -108,9 +96,7 @@ class ManageProjectsTest extends TestCase
 
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function an_authenticated_user_cannot_update_the_projects_of_others()
     {
         $this->signIn();
@@ -121,9 +107,7 @@ class ManageProjectsTest extends TestCase
 
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_project_requires_a_title()
     {
         $this->signIn();
@@ -133,9 +117,7 @@ class ManageProjectsTest extends TestCase
         $this->post('/projects', $attributes)->assertSessionHasErrors('title');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_project_requires_a_description()
     {
         $this->signIn();
