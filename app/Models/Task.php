@@ -25,7 +25,7 @@ class Task extends Model
     {
         $this->update(['completed' => true]);
 
-        $this->project->recordActivity('completed_task');
+        $this->recordActivity('completed_task');
     }
 
     /**
@@ -36,7 +36,7 @@ class Task extends Model
     {
         $this->update(['completed' => false]);
 
-        $this->project->recordActivity('incompleted_task');
+        $this->recordActivity('incompleted_task');
     }
 
     public function project()
@@ -49,4 +49,28 @@ class Task extends Model
         return "{$this->project->path()}/tasks/{$this->id}";
     }
 
+    /**
+     * Record activity for a project
+     *
+     * @param object $project
+     * @param string $description
+     * @return void
+     */
+    public function recordActivity($description)
+    {
+        $this->activity()->create([
+            'project_id' => $this->project_id,
+            'description' => $description
+        ]);
+    }
+
+    /**
+     * The activity feed for the project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'subject')->latest();
+    }
 }
