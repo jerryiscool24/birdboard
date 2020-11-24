@@ -92,7 +92,6 @@ class ProjectTasksTest extends TestCase
     /** @test */
     function a_task_can_be_marked_as_incomplete()
     {
-        $this->withoutExceptionHandling();
         $project = ProjectFactory::withTasks(1)->create();
 
         $this->actingAs($project->owner)
