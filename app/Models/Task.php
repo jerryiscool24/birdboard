@@ -26,6 +26,26 @@ class Task extends Model
         });
     }
 
+    /**
+     * Mark task complete
+     *
+     */
+    public function complete()
+    {
+        $this->update(['completed' => true]);
+
+        $this->project->recordActivity('completed_task');
+    }
+
+    /**
+     * Marked task as incomplete
+     *
+     */
+    public function incomplete()
+    {
+        $this->update(['completed' => false]);
+    }
+
     public function project()
     {
         return $this->belongsTo(Project::class);
@@ -36,10 +56,4 @@ class Task extends Model
         return "{$this->project->path()}/tasks/{$this->id}";
     }
 
-    public function complete()
-    {
-        $this->update(['completed' => true]);
-
-        $this->project->recordActivity('completed_task');
-    }
 }

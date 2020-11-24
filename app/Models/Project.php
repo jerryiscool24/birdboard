@@ -25,19 +25,6 @@ class Project extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tasks()
-    {
-        return $this->hasMany(Task::class);
-    }
-
-    public function activity()
-    {
-        return $this->hasMany(Activity::class);
-    }
-
-    /**
      * Add task to a project
      *
      * @param string $body
@@ -48,18 +35,33 @@ class Project extends Model
         return $this->tasks()->create(compact('body'));
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
      /**
-     * Record activity
+     * Record activity for a project
      *
      * @param object $project
-     * @param string $type
+     * @param string $description
      * @return void
      */
-    public function recordActivity($type)
+    public function recordActivity($description)
     {
-        Activity::create([
-            'project_id' => $this->id,
-            'description' => $type
-        ]);
+        $this->activity()->create(compact('description'));
+    }
+
+    /**
+     * The activity feed for the project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
     }
 }
