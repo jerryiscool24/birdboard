@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsActivity;
 
     protected $guarded = [];
 
@@ -16,6 +18,13 @@ class Task extends Model
     protected $casts = [
         'completed' => 'boolean'
     ];
+
+    /**
+     * Overwrite recordable events in trait
+     *
+     * @var array
+     */
+    protected static $recordableEvents = ['created', 'deleted'];
 
     /**
      * Mark task complete
@@ -47,30 +56,5 @@ class Task extends Model
     public function path()
     {
         return "{$this->project->path()}/tasks/{$this->id}";
-    }
-
-    /**
-     * Record activity for a project
-     *
-     * @param object $project
-     * @param string $description
-     * @return void
-     */
-    public function recordActivity($description)
-    {
-        $this->activity()->create([
-            'project_id' => $this->project_id,
-            'description' => $description
-        ]);
-    }
-
-    /**
-     * The activity feed for the project
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function activity()
-    {
-        return $this->morphMany(Activity::class, 'subject')->latest();
     }
 }
