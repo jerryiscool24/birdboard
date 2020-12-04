@@ -1,1 +1,1 @@
-You incompleted the "{{ $activity->subject->body }}"
+{{ $activity->user->name }} incompleted the "{{ $activity->subject->body }}"

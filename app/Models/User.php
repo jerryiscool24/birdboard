@@ -59,6 +59,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    /**
+     * Get the projects of a user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function projects()
     {
         return $this->hasMany(Project::class, 'owner_id')->latest('updated_at');

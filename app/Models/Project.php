@@ -14,6 +14,12 @@ class Project extends Model
 
     protected $guarded = [];
 
+    /**
+     * Serialize date
+     *
+     * @param DateTimeInterface $date
+     * @return date
+     */
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
@@ -30,6 +36,8 @@ class Project extends Model
     }
 
     /**
+     * Get the owner of the project
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function owner()
@@ -41,7 +49,7 @@ class Project extends Model
      * Add task to a project
      *
      * @param string $body
-     * @return model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function addTask($body)
     {
@@ -49,6 +57,8 @@ class Project extends Model
     }
 
     /**
+     * Get the tasks for a project
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tasks()

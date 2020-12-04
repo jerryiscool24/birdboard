@@ -13,8 +13,17 @@ class Task extends Model
 
     protected $guarded = [];
 
+    /**
+     *
+     * @var array
+     */
     protected $touches = ['project'];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'completed' => 'boolean'
     ];
@@ -48,11 +57,21 @@ class Task extends Model
         $this->recordActivity('incompleted_task');
     }
 
+    /**
+     * Get the project of a task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function project()
     {
         return $this->belongsTo(Project::class);
     }
 
+    /**
+     * Path for single task for a project
+     *
+     * @return string
+     */
     public function path()
     {
         return "{$this->project->path()}/tasks/{$this->id}";

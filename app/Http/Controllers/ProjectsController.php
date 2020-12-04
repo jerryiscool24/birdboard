@@ -9,9 +9,9 @@ use Illuminate\Validation\Concerns\ValidatesAttributes;
 class ProjectsController extends Controller
 {
     /**
-     * index
+     * Display all projects
      *
-     * @return view
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -22,10 +22,10 @@ class ProjectsController extends Controller
     }
 
     /**
-     * show
+     * Show single project
      *
      * @param  Illuminate\Database\Eloquent\Model
-     * @return view
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Project $project)
     {
@@ -35,9 +35,9 @@ class ProjectsController extends Controller
     }
 
     /**
-     * create
+     * Display create project form
      *
-     * @return view
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -46,8 +46,8 @@ class ProjectsController extends Controller
 
     /**
      *
-     * @param Project $project
-     * @return view
+     * @param Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Project $project)
     {
@@ -55,9 +55,9 @@ class ProjectsController extends Controller
     }
 
     /**
-     * store
+     * Store new project
      *
-     * @return view
+     * @return \Illuminate\Routing\Redirector
      */
     public function store()
     {
@@ -68,8 +68,8 @@ class ProjectsController extends Controller
 
     /**
      *
-     * @param Project $project
-     * @return redirect
+     * @param Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Routing\Redirector
      */
     public function update(Project $project)
     {
