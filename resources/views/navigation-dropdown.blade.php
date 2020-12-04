@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <h1>
-                        <a href="{{ route('projects') }}">
+                        <a href="{{ route('projects.index') }}">
                             <img src="/images/logo.svg" alt="Birdboard" class="block h-9 w-auto">
                         </a>
                     </h1>
@@ -14,7 +14,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
-                    <x-jet-nav-link href="{{ route('projects') }}" :active="request()->routeIs('projects')">
+                    <x-jet-nav-link href="{{ route('projects.index') }}" :active="request()->routeIs('projects')">
                         Projects
                     </x-jet-nav-link>
                 </div>

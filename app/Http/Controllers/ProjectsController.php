@@ -25,6 +25,7 @@ class ProjectsController extends Controller
      * Show single project
      *
      * @param  Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @return \Illuminate\Contracts\View\View
      */
     public function show(Project $project)
@@ -57,7 +58,7 @@ class ProjectsController extends Controller
     /**
      * Store new project
      *
-     * @return \Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store()
     {
@@ -67,9 +68,11 @@ class ProjectsController extends Controller
     }
 
     /**
+     *  Update a project
      *
      * @param Illuminate\Database\Eloquent\Model
-     * @return \Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Project $project)
     {
@@ -80,6 +83,14 @@ class ProjectsController extends Controller
         return redirect($project->path());
     }
 
+    public function destroy(Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $project->delete();
+
+        return redirect('/projects');
+    }
     /**
      * validate request attributes
      *

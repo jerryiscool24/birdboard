@@ -12,7 +12,8 @@ class ProjectTasksController extends Controller
      * Store task to a project
      *
      * @param Illuminate\Database\Eloquent\Model $project
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Project $project)
     {
@@ -32,7 +33,8 @@ class ProjectTasksController extends Controller
      *
      * @param Illuminate\Database\Eloquent\Model $project
      * @param Illuminate\Database\Eloquent\Model $task
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Project $project, Task $task)
     {
