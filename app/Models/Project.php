@@ -76,13 +76,23 @@ class Project extends Model
         return $this->hasMany(Activity::class)->latest();
     }
 
+    /**
+     * Invite user to a project
+     *
+     * @param User $user
+     */
     public function invite(User $user)
     {
         $this->members()->attach($user);
     }
 
+    /**
+     * Members of a project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function members()
     {
-        return $this->belongsToMany(User::class, "project_members");
+        return $this->belongsToMany(User::class, "project_members")->withTimestamps();
     }
 }

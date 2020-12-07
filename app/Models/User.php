@@ -60,12 +60,26 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the projects of a user
+     * Get all the projects owner of a user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function projects()
     {
         return $this->hasMany(Project::class, 'owner_id')->latest('updated_at');
+    }
+
+    /**
+     * Get all accessible projects for a user
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function accessibleProjects()
+    {
+        return Project::where('owner_id', $this->id)
+            ->orWhereHas('members', function ($query) {
+                $query->where('user_id', $this->id);
+            })
+            ->get();
     }
 }
